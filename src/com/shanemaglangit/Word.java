@@ -3,9 +3,11 @@ package com.shanemaglangit;
 import java.awt.*;
 
 public class Word {
-    private static final int START_X = 10;
-    private static final int START_Y = 10;
-    private static final int MAX_SPEED = 10;
+    private static final double START_X = 10;
+    private static final double START_Y = 10;
+    private static final double END_X = 550;
+    private static final double MIN_SPEED = 1;
+    private static final double MAX_ADDITIONAL_SPEED = 1;
 
     private String text;
     private double x;
@@ -15,9 +17,9 @@ public class Word {
 
     public Word(String text) {
         this.text = text;
-        this.x = Math.random() * 600 + START_X;
+        this.x = Math.random() * END_X + START_X;
         this.y = START_Y;
-        this.speed = Math.random() * MAX_SPEED + 4;
+        this.speed = Math.random() * MAX_ADDITIONAL_SPEED + MIN_SPEED;
 
         generateColor();
     }
@@ -37,6 +39,10 @@ public class Word {
         int b = (int) (Math.random() * 256);
 
         this.color = new Color(r, g, b);
+    }
+
+    public String getText() {
+        return text;
     }
 
     public double getY() {
