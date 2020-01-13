@@ -8,6 +8,11 @@ public class WordRun implements Runnable {
     private volatile ArrayList<Word> words;
     private TypingManiac typingManiac;
 
+    /**
+     * Default constructor
+     * @param typingManiac frame where the thread runs.
+     * @param words list of words.
+     */
     public WordRun(TypingManiac typingManiac, ArrayList<Word> words) {
         this.typingManiac = typingManiac;
         this.words = words;
@@ -18,6 +23,9 @@ public class WordRun implements Runnable {
         this.words = words;
     }
 
+    /**
+     * Executes when thread is started.
+     */
     @Override
     public void run() {
         while(isRunning) {
@@ -27,29 +35,37 @@ public class WordRun implements Runnable {
         }
     }
 
+    /**
+     * Used to update the words position.
+     */
     private void updateWord() {
         for(Word word: words) {
             word.descend();
         }
     }
 
+    /**
+     * Used to update the game area.
+     */
     private void repaintDrawPanel() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                typingManiac.repaintGame();
-            }
-        });
+        SwingUtilities.invokeLater(() -> typingManiac.repaintGame());
     }
 
+    /**
+     * Pause the thread's execution.
+     */
     private void sleep() {
         try {
-            Thread.sleep(20);
+            Thread.sleep(25);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Used to run or stop the thread.
+     * @param isRunning
+     */
     public synchronized void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
         repaintDrawPanel();
